@@ -1,1264 +1,1110 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Taoufik Moda — Prêt-à-porter féminin de luxe</title>
 
 <meta name="description"
       content="Taoufik Moda — 3 boutiques de mode féminine. Découvrez la collection et commandez en ligne.">
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap"
       rel="stylesheet">
 
-<link rel="stylesheet"
-      href="style.css">
-
+<link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+<!-- ================= WELCOME INTRO ================= -->
 
-<!-- =====================================================
-     INTRO
-     ===================================================== -->
-
-<div id="welcomeIntro">
-
-    <div id="welcomeWord"></div>
-
+<div id="welcomeIntro" aria-hidden="true">
+  <div id="welcomeWord"></div>
 </div>
 
 
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
+<!-- ================= HEADER ================= -->
 
-<header class="site-header"
-        id="top">
+<header class="site-header" id="top">
 
-    <div class="header-inner">
+  <div class="header-inner">
 
-        <a class="brand"
-           href="#top">
+    <a class="brand" href="#top">
+      <img
+        src="images/TAOUFIK-MODA.jpeg"
+        alt="Taoufik Moda"
+        class="brand-logo">
+    </a>
 
-            <img
-                src="images/TAOUFIK-MODA.jpeg"
-                alt="Taoufik Moda"
-                class="brand-logo">
+    <nav class="main-nav" id="mainNav">
 
-        </a>
+      <a href="#boutiques">
+        Boutiques
+      </a>
 
+      <a href="#collection">
+        Collection
+      </a>
 
-        <nav class="main-nav"
-             id="mainNav">
+      <a href="#commande">
+        Commander
+      </a>
 
-            <a href="#boutiques">
-                Boutiques
-            </a>
+      <a href="#contact">
+        Contact
+      </a>
 
-            <a href="#collection">
-                Collection
-            </a>
+      <a
+        href="#"
+        id="adminToggleLink"
+        class="nav-admin">
 
-            <a href="#commande">
-                Commander
-            </a>
+        Espace gérant
 
-            <a href="#contact">
-                Contact
-            </a>
+      </a>
 
-            <a href="#"
-               id="adminToggleLink"
-               class="nav-admin">
-
-                Espace gérant
-
-            </a>
-
-        </nav>
+    </nav>
 
 
-        <button
-            class="burger"
-            id="burgerBtn"
-            aria-label="Ouvrir le menu"
-            aria-expanded="false">
+    <button
+      class="burger"
+      id="burgerBtn"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false">
 
-            <span></span>
-            <span></span>
-            <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
 
-        </button>
+    </button>
 
-    </div>
+  </div>
 
 </header>
 
 
-<!-- =====================================================
-     HERO
-     ===================================================== -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
-    <video
-        id="heroVideo"
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        aria-hidden="true"
-        src="https://cdn.sceneai.art/backgrounds/5a1dc3c9-a0ce-4de3-a166-6fbef98bb22a.mov">
-    </video>
+  <!-- Background Silk WebGL -->
+  <canvas
+    id="silkShaderCanvas"
+    class="hero-shader"
+    aria-hidden="true">
+  </canvas>
 
 
-    <div class="hero-overlay"
-         aria-hidden="true">
+  <div
+    class="hero-overlay"
+    aria-hidden="true">
+  </div>
+
+
+  <svg
+    class="hero-hemline"
+    viewBox="0 0 1440 300"
+    preserveAspectRatio="none"
+    aria-hidden="true">
+
+    <path
+      d="M0,180 C 240,60 360,260 620,150 C 880,40 1000,220 1440,90"
+      fill="none"
+      stroke="url(#hemGrad)"
+      stroke-width="2">
+    </path>
+
+    <defs>
+
+      <linearGradient
+        id="hemGrad"
+        x1="0"
+        y1="0"
+        x2="1"
+        y2="0">
+
+        <stop
+          offset="0%"
+          stop-color="#C6A15B"
+          stop-opacity="0">
+        </stop>
+
+        <stop
+          offset="50%"
+          stop-color="#C6A15B"
+          stop-opacity="0.9">
+        </stop>
+
+        <stop
+          offset="100%"
+          stop-color="#C6A15B"
+          stop-opacity="0">
+        </stop>
+
+      </linearGradient>
+
+    </defs>
+
+  </svg>
+
+
+  <div class="hero-content">
+
+    <p class="eyebrow">
+      Maison marocaine de prêt-à-porter féminin
+    </p>
+
+    <h1 class="hero-title">
+
+      <span class="tao">
+        Taoufik
+      </span>
+
+      <span class="moda">
+        Moda
+      </span>
+
+    </h1>
+
+    <p class="hero-tagline">
+      Li 3ndha tlbes ou li ma3ndhach tahya khasha tlbes.
+    </p>
+
+    <div class="hero-actions">
+
+      <a
+        href="#collection"
+        class="btn btn-primary">
+
+        Découvrir la collection
+
+      </a>
+
+      <a
+        href="#boutiques"
+        class="btn btn-ghost">
+
+        Nos 3 boutiques
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <div
+    class="hero-figure"
+    aria-hidden="true">
+  </div>
+
+</section>
+
+
+<!-- ================= BOUTIQUES ================= -->
+
+<section
+  class="section boutiques"
+  id="boutiques">
+
+  <div class="section-head">
+
+    <p class="eyebrow">
+      Où nous trouver
+    </p>
+
+    <h2>
+      Trois adresses, un même art de vivre
+    </h2>
+
+    <div class="hemline-rule"></div>
+
+  </div>
+
+
+  <div class="store-grid">
+
+
+    <!-- MASSIRA -->
+
+    <article class="store-card">
+
+      <span class="store-index">
+        Boutique I
+      </span>
+
+      <h3>
+        Taoufik Moda — Massira
+      </h3>
+
+      <p class="store-line">
+        Hay Massira, en face de la Banque Populaire, Marrakech
+      </p>
+
+      <p class="store-line">
+        +212 6 63 40 62 35
+      </p>
+
+      <p class="store-line">
+        Tous les jours · 11h00 – 23h00
+      </p>
+
+      <div class="store-map">
+
+        <iframe
+          src="https://www.google.com/maps?q=Hay+Massira,+en+face+Banque+Populaire,+Marrakech&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Localisation Taoufik Moda — Massira, Marrakech">
+        </iframe>
+
+      </div>
+
+      <a
+        class="store-directions"
+        href="https://www.google.com/maps/dir/?api=1&destination=Hay+Massira,+en+face+Banque+Populaire,+Marrakech"
+        target="_blank"
+        rel="noopener">
+
+        Itinéraire →
+
+      </a>
+
+    </article>
+
+
+    <!-- MHAMID -->
+
+    <article class="store-card">
+
+      <span class="store-index">
+        Boutique II
+      </span>
+
+      <h3>
+        Taoufik Moda — Mhamid
+      </h3>
+
+      <p class="store-line">
+        Mhamid, en face de la Mosquée Al Mataâ Allah,
+        à côté de Pharmacie Raja, Marrakech
+      </p>
+
+      <p class="store-line">
+        +212 6 64 38 01 23
+      </p>
+
+      <p class="store-line">
+        Tous les jours · 11h00 – 23h00
+      </p>
+
+      <div class="store-map">
+
+        <iframe
+          src="https://www.google.com/maps?q=Mhamid,+en+face+Mosquee+Al+Mataa+Allah,+a+cote+Pharmacie+Raja,+Marrakech&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Localisation Taoufik Moda — Mhamid, Marrakech">
+        </iframe>
+
+      </div>
+
+      <a
+        class="store-directions"
+        href="https://www.google.com/maps/dir/?api=1&destination=Mhamid,+en+face+Mosquee+Al+Mataa+Allah,+a+cote+Pharmacie+Raja,+Marrakech"
+        target="_blank"
+        rel="noopener">
+
+        Itinéraire →
+
+      </a>
+
+    </article>
+
+
+    <!-- ATTAKADOUM -->
+
+    <article class="store-card">
+
+      <span class="store-index">
+        Boutique III
+      </span>
+
+      <h3>
+        Taoufik Moda — Attakadoum
+      </h3>
+
+      <p class="store-line">
+        Avenue Attakadoum, Diour Massakine,
+        à côté du Poste de Police, Marrakech
+      </p>
+
+      <p class="store-line">
+        +212 6 74 29 55 16
+      </p>
+
+      <p class="store-line">
+        Tous les jours · 11h00 – 23h00
+      </p>
+
+      <div class="store-map">
+
+        <iframe
+          src="https://www.google.com/maps?q=Avenue+Attakadoum,+Diour+Massakine,+a+cote+Poste+de+Police,+Marrakech&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Localisation Taoufik Moda — Attakadoum, Marrakech">
+        </iframe>
+
+      </div>
+
+      <a
+        class="store-directions"
+        href="https://www.google.com/maps/dir/?api=1&destination=Avenue+Attakadoum,+Diour+Massakine,+a+cote+Poste+de+Police,+Marrakech"
+        target="_blank"
+        rel="noopener">
+
+        Itinéraire →
+
+      </a>
+
+    </article>
+
+  </div>
+
+
+  <p class="store-note">
+
+    * Adresses et horaires à personnaliser selon vos boutiques réelles
+    (remplacez aussi les adresses dans les liens des cartes GPS).
+
+  </p>
+
+</section>
+
+
+<!-- ================= COLLECTION ================= -->
+
+<section
+  class="section collection"
+  id="collection">
+
+  <div class="section-head">
+
+    <p class="eyebrow">
+      La collection
+    </p>
+
+    <h2>
+      Pièces choisies, en boutique et sur commande
+    </h2>
+
+    <div class="hemline-rule"></div>
+
+  </div>
+
+
+  <div
+    class="collection-filters"
+    id="collectionFilters">
+
+    <button
+      class="filter-chip is-active"
+      data-filter="Tous">
+
+      Tous
+
+    </button>
+
+  </div>
+
+
+  <div
+    class="product-grid"
+    id="productGrid">
+  </div>
+
+
+  <p
+    class="empty-state"
+    id="emptyState"
+    hidden>
+
+    Aucun article pour le moment.
+    Ajoutez vos premières pièces depuis l'espace gérant.
+
+  </p>
+
+</section>
+
+
+<!-- ================= ADMIN PANEL ================= -->
+
+<section
+  class="admin-panel"
+  id="adminPanel"
+  hidden>
+
+  <div class="admin-inner">
+
+    <div class="admin-head">
+
+      <div>
+
+        <p class="eyebrow">
+          Espace gérant
+        </p>
+
+        <h2>
+          Gérer les articles de la boutique
+        </h2>
+
+      </div>
+
+      <button
+        class="btn btn-ghost btn-small"
+        id="closeAdmin">
+
+        Fermer
+
+      </button>
+
     </div>
 
 
-    <svg
-        class="hero-hemline"
-        viewBox="0 0 1440 300"
-        preserveAspectRatio="none"
-        aria-hidden="true">
-
-        <path
-            d="M0,180 C 240,60 360,260 620,150 C 880,40 1000,220 1440,90"
-            fill="none"
-            stroke="url(#hemGrad)"
-            stroke-width="2"/>
-
-        <defs>
-
-            <linearGradient
-                id="hemGrad"
-                x1="0"
-                y1="0"
-                x2="1"
-                y2="0">
-
-                <stop
-                    offset="0%"
-                    stop-color="#C6A15B"
-                    stop-opacity="0"/>
-
-                <stop
-                    offset="50%"
-                    stop-color="#C6A15B"
-                    stop-opacity="0.9"/>
-
-                <stop
-                    offset="100%"
-                    stop-color="#C6A15B"
-                    stop-opacity="0"/>
-
-            </linearGradient>
-
-        </defs>
-
-    </svg>
+    <form
+      id="productForm"
+      class="admin-form">
 
 
-    <div class="hero-content">
+      <div class="form-row">
 
-        <p class="eyebrow">
-            Maison marocaine de prêt-à-porter féminin
-        </p>
+        <label>
+          Nom de l'article
 
+          <input
+            type="text"
+            id="pName"
+            placeholder="Kaftan brodé main"
+            required>
 
-        <h1 class="hero-title">
-
-            <span class="tao">
-                Taoufik
-            </span>
-
-            <span class="moda">
-                Moda
-            </span>
-
-        </h1>
+        </label>
 
 
-        <p class="hero-tagline">
-            Li 3ndha tlbes ou li ma3ndhach tahya khasha tlbes.
-        </p>
+        <label>
+          Prix (DH)
+
+          <input
+            type="number"
+            id="pPrice"
+            min="0"
+            step="1"
+            placeholder="1200"
+            required>
+
+        </label>
+
+      </div>
 
 
-        <div class="hero-actions">
+      <div class="form-row">
 
-            <a
-                href="#collection"
-                class="btn btn-primary">
+        <label>
+          Catégorie
 
-                Découvrir la collection
+          <input
+            type="text"
+            id="pCategory"
+            placeholder="Kaftans, Robes, Accessoires…"
+            required>
 
-            </a>
+        </label>
 
 
-            <a
-                href="#boutiques"
-                class="btn btn-ghost">
+        <label>
+          Boutique
 
-                Nos 3 boutiques
+          <select id="pStore">
 
-            </a>
+            <option>
+              Massira — Marrakech
+            </option>
+
+            <option>
+              Mhamid — Marrakech
+            </option>
+
+            <option>
+              Attakadoum — Marrakech
+            </option>
+
+          </select>
+
+        </label>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <label class="full">
+
+          Photo de l'article
+          (depuis votre appareil)
+
+          <input
+            type="file"
+            id="pImageFile"
+            accept="image/*">
+
+        </label>
+
+      </div>
+
+
+      <div
+        class="form-row"
+        id="imagePreviewRow"
+        hidden>
+
+        <div class="full image-preview-wrap">
+
+          <img
+            id="imagePreview"
+            class="image-preview"
+            alt="Aperçu de l'article">
+
+          <button
+            type="button"
+            class="btn btn-ghost btn-small"
+            id="removeImage">
+
+            Retirer la photo
+
+          </button>
 
         </div>
 
-    </div>
+      </div>
 
 
-    <div
-        class="hero-figure"
-        aria-hidden="true">
-    </div>
+      <div class="form-row">
 
-</section>
+        <label class="full">
 
+          Ou image en ligne
+          (URL, optionnel si vous avez déjà mis une photo ci-dessus)
 
-<!-- =====================================================
-     BOUTIQUES
-     ===================================================== -->
+          <input
+            type="url"
+            id="pImage"
+            placeholder="https://…">
 
-<section
-    class="section boutiques"
-    id="boutiques">
+        </label>
 
+      </div>
 
-    <div class="section-head">
 
-        <p class="eyebrow">
-            Où nous trouver
-        </p>
+      <div class="form-row">
 
-        <h2>
-            Trois adresses, un même art de vivre
-        </h2>
+        <label class="full">
 
-        <div class="hemline-rule"></div>
+          Description courte
 
-    </div>
+          <textarea
+            id="pDesc"
+            rows="2"
+            placeholder="Tissu, coupe, détails de finition…">
+          </textarea>
 
+        </label>
 
-    <div class="store-grid">
+      </div>
 
 
-        <!-- BOUTIQUE 1 -->
-
-        <article class="store-card">
-
-            <span class="store-index">
-                Boutique I
-            </span>
-
-
-            <h3>
-                Taoufik Moda — Massira
-            </h3>
-
-
-            <p class="store-line">
-                Hay Massira, en face de la Banque Populaire,
-                Marrakech
-            </p>
-
-
-            <p class="store-line">
-                +212 6 75 70 11 80
-            </p>
-
-
-            <p class="store-line">
-                Tous les jours · 9h30 – 21h00
-            </p>
-
-
-            <div class="store-map">
-
-                <iframe
-                    src="https://www.google.com/maps?q=Hay+Massira,+en+face+Banque+Populaire,+Marrakech&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen
-                    title="Localisation Taoufik Moda — Massira, Marrakech">
-                </iframe>
-
-            </div>
-
-
-            <a
-                class="store-directions"
-                href="https://www.google.com/maps/dir/?api=1&destination=Hay+Massira,+en+face+Banque+Populaire,+Marrakech"
-                target="_blank"
-                rel="noopener">
-
-                Itinéraire →
-
-            </a>
-
-        </article>
-
-
-        <!-- BOUTIQUE 2 -->
-
-        <article class="store-card">
-
-            <span class="store-index">
-                Boutique II
-            </span>
-
-
-            <h3>
-                Taoufik Moda — Mhamid
-            </h3>
-
-
-            <p class="store-line">
-                Mhamid, en face de la Mosquée Al Mataâ Allah,
-                à côté de Pharmacie Raja, Marrakech
-            </p>
-
-
-            <p class="store-line">
-                +212 6 00 00 00 02
-            </p>
-
-
-            <p class="store-line">
-                Tous les jours · 9h30 – 21h00
-            </p>
-
-
-            <div class="store-map">
-
-                <iframe
-                    src="https://www.google.com/maps?q=Mhamid,+en+face+Mosquee+Al+Mataa+Allah,+a+cote+Pharmacie+Raja,+Marrakech&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen
-                    title="Localisation Taoufik Moda — Mhamid, Marrakech">
-                </iframe>
-
-            </div>
-
-
-            <a
-                class="store-directions"
-                href="https://www.google.com/maps/dir/?api=1&destination=Mhamid,+en+face+Mosquee+Al+Mataa+Allah,+a+cote+Pharmacie+Raja,+Marrakech"
-                target="_blank"
-                rel="noopener">
-
-                Itinéraire →
-
-            </a>
-
-        </article>
-
-
-        <!-- BOUTIQUE 3 -->
-
-        <article class="store-card">
-
-            <span class="store-index">
-                Boutique III
-            </span>
-
-
-            <h3>
-                Taoufik Moda — Attakadoum
-            </h3>
-
-
-            <p class="store-line">
-                Avenue Attakadoum, Diour Massakine,
-                à côté du Poste de Police, Marrakech
-            </p>
-
-
-            <p class="store-line">
-                +212 6 00 00 00 03
-            </p>
-
-
-            <p class="store-line">
-                Tous les jours · 9h30 – 21h00
-            </p>
-
-
-            <div class="store-map">
-
-                <iframe
-                    src="https://www.google.com/maps?q=Avenue+Attakadoum,+Diour+Massakine,+a+cote+Poste+de+Police,+Marrakech&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen
-                    title="Localisation Taoufik Moda — Attakadoum, Marrakech">
-                </iframe>
-
-            </div>
-
-
-            <a
-                class="store-directions"
-                href="https://www.google.com/maps/dir/?api=1&destination=Avenue+Attakadoum,+Diour+Massakine,+a+cote+Poste+de+Police,+Marrakech"
-                target="_blank"
-                rel="noopener">
-
-                Itinéraire →
-
-            </a>
-
-        </article>
-
-    </div>
-
-
-    <p class="store-note">
-        * Adresses et horaires à personnaliser selon vos boutiques réelles.
-    </p>
-
-</section>
-
-
-<!-- =====================================================
-     COLLECTION
-     ===================================================== -->
-
-<section
-    class="section collection"
-    id="collection">
-
-
-    <div class="section-head">
-
-        <p class="eyebrow">
-            La collection
-        </p>
-
-
-        <h2>
-            Pièces choisies, en boutique et sur commande
-        </h2>
-
-
-        <div class="hemline-rule"></div>
-
-    </div>
-
-
-    <div
-        class="collection-filters"
-        id="collectionFilters">
+      <div class="admin-actions">
 
         <button
-            class="filter-chip is-active"
-            data-filter="Tous">
+          type="submit"
+          class="btn btn-primary btn-small">
 
-            Tous
+          Ajouter l'article
 
         </button>
 
+        <span class="admin-hint">
+          Les articles sont enregistrés dans ce navigateur.
+        </span>
+
+      </div>
+
+    </form>
+
+
+    <div class="publish-box">
+
+      <p class="eyebrow">
+        Rendre les articles visibles à tous les visiteurs
+      </p>
+
+      <p class="publish-text">
+
+        Vos articles et photos ne sont pour l'instant visibles
+        que sur cet appareil.
+
+        Cliquez sur « Publier le catalogue », puis remplacez le fichier
+        <code>products.json</code> sur votre hébergement par celui téléchargé.
+
+        Tous les visiteurs du site verront alors les mêmes articles
+        et photos.
+
+      </p>
+
+      <button
+        type="button"
+        class="btn btn-whatsapp btn-small"
+        id="exportCatalog">
+
+        Publier le catalogue (products.json)
+
+      </button>
+
     </div>
 
 
     <div
-        class="product-grid"
-        id="productGrid">
+      class="admin-list"
+      id="adminList">
     </div>
 
+  </div>
 
-    <p
-        class="empty-state"
-        id="emptyState"
-        hidden>
+</section>
 
-        Aucun article pour le moment.
-        Ajoutez vos premières pièces depuis l'espace gérant.
 
+<!-- ================= COMMANDE ================= -->
+
+<section
+  class="section order"
+  id="commande">
+
+  <div class="section-head">
+
+    <p class="eyebrow">
+      Commander en ligne
     </p>
 
-</section>
+    <h2>
+      Demandez votre article, on s'occupe du reste
+    </h2>
 
+    <div class="hemline-rule"></div>
 
-<!-- =====================================================
-     ADMIN
-     ===================================================== -->
+  </div>
 
-<section
-    class="admin-panel"
-    id="adminPanel"
-    hidden>
 
+  <div class="order-wrap">
 
-    <div class="admin-inner">
+    <form
+      id="orderForm"
+      class="order-form">
 
 
-        <div class="admin-head">
+      <div class="form-row">
 
-            <div>
+        <label>
+          Nom complet
 
-                <p class="eyebrow">
-                    Espace gérant
-                </p>
+          <input
+            type="text"
+            id="oName"
+            required
+            placeholder="Votre nom">
 
-                <h2>
-                    Gérer les articles de la boutique
-                </h2>
+        </label>
 
-            </div>
 
+        <label>
+          Téléphone
 
-            <button
-                class="btn btn-ghost btn-small"
-                id="closeAdmin">
+          <input
+            type="tel"
+            id="oPhone"
+            required
+            placeholder="06 00 00 00 00">
 
-                Fermer
+        </label>
 
-            </button>
+      </div>
 
-        </div>
 
+      <div class="form-row">
 
-        <form
-            id="productForm"
-            class="admin-form">
+        <label>
+          Article souhaité
 
+          <select
+            id="oArticle"
+            required>
 
-            <div class="form-row">
+            <option value="">
+              Sélectionner un article
+            </option>
 
-                <label>
+          </select>
 
-                    Nom de l'article
+        </label>
 
-                    <input
-                        type="text"
-                        id="pName"
-                        placeholder="Kaftan brodé main"
-                        required>
 
-                </label>
+        <label>
+          Quantité
 
+          <input
+            type="number"
+            id="oQty"
+            min="1"
+            value="1"
+            required>
 
-                <label>
+        </label>
 
-                    Prix (DH)
+      </div>
 
-                    <input
-                        type="number"
-                        id="pPrice"
-                        min="0"
-                        step="1"
-                        placeholder="1200"
-                        required>
 
-                </label>
+      <div class="form-row">
 
-            </div>
+        <label class="full">
 
+          Boutique de retrait
 
-            <div class="form-row">
+          <select id="oStore">
 
-                <label>
+            <option>
+              Massira — Marrakech
+            </option>
 
-                    Catégorie
+            <option>
+              Mhamid — Marrakech
+            </option>
 
-                    <input
-                        type="text"
-                        id="pCategory"
-                        placeholder="Kaftans, Robes, Accessoires…"
-                        required>
+            <option>
+              Attakadoum — Marrakech
+            </option>
 
-                </label>
+          </select>
 
+        </label>
 
-                <label>
+      </div>
 
-                    Boutique
 
-                    <select id="pStore">
+      <div class="form-row">
 
-                        <option>
-                            Massira — Marrakech
-                        </option>
+        <label class="full">
 
-                        <option>
-                            Mhamid — Marrakech
-                        </option>
+          Message (taille, couleur, précisions…)
 
-                        <option>
-                            Attakadoum — Marrakech
-                        </option>
+          <textarea
+            id="oMessage"
+            rows="3"
+            placeholder="Taille M, coloris ivoire si disponible…">
+          </textarea>
 
-                    </select>
+        </label>
 
-                </label>
+      </div>
 
-            </div>
 
+      <div class="order-actions">
 
-            <div class="form-row">
+        <button
+          type="submit"
+          class="btn btn-primary">
 
-                <label class="full">
+          Envoyer la demande
 
-                    Photo de l'article
-
-                    <input
-                        type="file"
-                        id="pImageFile"
-                        accept="image/*">
-
-                </label>
-
-            </div>
-
-
-            <div
-                class="form-row"
-                id="imagePreviewRow"
-                hidden>
-
-
-                <div class="full image-preview-wrap">
-
-                    <img
-                        id="imagePreview"
-                        class="image-preview"
-                        alt="Aperçu de l'article">
-
-
-                    <button
-                        type="button"
-                        class="btn btn-ghost btn-small"
-                        id="removeImage">
-
-                        Retirer la photo
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <label class="full">
-
-                    Ou image en ligne
-
-                    <input
-                        type="url"
-                        id="pImage"
-                        placeholder="https://…">
-
-                </label>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <label class="full">
-
-                    Description courte
-
-                    <textarea
-                        id="pDesc"
-                        rows="2"
-                        placeholder="Tissu, coupe, détails de finition…"></textarea>
-
-                </label>
-
-            </div>
-
-
-            <div class="admin-actions">
-
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-small">
-
-                    Ajouter l'article
-
-                </button>
-
-
-                <span class="admin-hint">
-
-                    Les articles sont enregistrés dans ce navigateur.
-
-                </span>
-
-            </div>
-
-        </form>
-
-
-        <div class="publish-box">
-
-            <p class="eyebrow">
-                Rendre les articles visibles à tous les visiteurs
-            </p>
-
-
-            <p class="publish-text">
-
-                Vos articles et photos ne sont pour l'instant visibles
-                que sur cet appareil.
-
-                Cliquez sur « Publier le catalogue », puis remplacez
-                le fichier products.json sur votre hébergement.
-
-            </p>
-
-
-            <button
-                type="button"
-                class="btn btn-whatsapp btn-small"
-                id="exportCatalog">
-
-                Publier le catalogue (products.json)
-
-            </button>
-
-        </div>
-
-
-        <div
-            id="adminList"
-            class="admin-list">
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     COMMANDE
-     ===================================================== -->
-
-<section
-    class="section order"
-    id="commande">
-
-
-    <div class="section-head">
-
-        <p class="eyebrow">
-            Commander
-        </p>
-
-
-        <h2>
-            Passez votre commande
-        </h2>
-
-
-        <div class="hemline-rule"></div>
-
-    </div>
-
-
-    <div class="order-wrap">
-
-
-        <form
-            id="orderForm"
-            class="order-form">
-
-
-            <div class="form-row">
-
-                <label>
-
-                    Nom
-
-                    <input
-                        type="text"
-                        id="oName"
-                        required>
-
-                </label>
-
-
-                <label>
-
-                    Téléphone
-
-                    <input
-                        type="tel"
-                        id="oPhone"
-                        required>
-
-                </label>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <label>
-
-                    Article
-
-                    <select
-                        id="oArticle"
-                        required>
-
-                        <option value="">
-                            Choisir un article
-                        </option>
-
-                    </select>
-
-                </label>
-
-
-                <label>
-
-                    Quantité
-
-                    <input
-                        type="number"
-                        id="oQty"
-                        min="1"
-                        value="1"
-                        required>
-
-                </label>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <label>
-
-                    Boutique
-
-                    <select id="oStore">
-
-                        <option>
-                            Massira — Marrakech
-                        </option>
-
-                        <option>
-                            Mhamid — Marrakech
-                        </option>
-
-                        <option>
-                            Attakadoum — Marrakech
-                        </option>
-
-                    </select>
-
-                </label>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <label class="full">
-
-                    Message
-
-                    <textarea
-                        id="oMessage"
-                        rows="4"
-                        placeholder="Votre message…"></textarea>
-
-                </label>
-
-            </div>
-
-
-            <div class="order-actions">
-
-                <button
-                    type="submit"
-                    class="btn btn-primary">
-
-                    Envoyer la commande
-
-                </button>
-
-
-                <a
-                    id="whatsappBtn"
-                    class="btn btn-whatsapp"
-                    target="_blank"
-                    rel="noopener">
-
-                    Commander sur WhatsApp
-
-                </a>
-
-            </div>
-
-
-            <p
-                id="orderConfirm"
-                class="order-confirm"
-                hidden>
-
-                Merci ! Votre demande a bien été préparée.
-
-            </p>
-
-        </form>
-
-
-        <aside class="order-side">
-
-            <ol class="order-list">
-
-                <li>
-                    Choisissez votre article.
-                </li>
-
-                <li>
-                    Indiquez vos coordonnées.
-                </li>
-
-                <li>
-                    Choisissez votre boutique.
-                </li>
-
-                <li>
-                    Ajoutez un message si nécessaire.
-                </li>
-
-                <li>
-                    Envoyez votre commande.
-                </li>
-
-            </ol>
-
-        </aside>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CONTACT
-     ===================================================== -->
-
-<section
-    class="section contact"
-    id="contact">
-
-
-    <div class="section-head">
-
-        <p class="eyebrow">
-            Contact
-        </p>
-
-
-        <h2>
-            Taoufik Moda
-        </h2>
-
-
-        <div class="hemline-rule"></div>
-
-    </div>
-
-
-    <div class="contact-links">
-
-        <a
-            href="https://wa.me/212664380123"
-            target="_blank"
-            rel="noopener">
-
-            WhatsApp
-
-        </a>
-
-
-        <a href="mailto:contact@taoufik-moda.com">
-
-            contact@taoufik-moda.com
-
-        </a>
+        </button>
 
 
         <a
-            href="https://www.instagram.com/taoufik.moda?stkn=MXFtczZiaGIwcDV6aA=="
-            target="_blank"
-            rel="noopener">
+          href="#"
+          id="whatsappBtn"
+          class="btn btn-whatsapp"
+          target="_blank"
+          rel="noopener">
 
-            Instagram
+          Commander via WhatsApp
 
         </a>
 
-
-        <a href="https://www.facebook.com/share/19XEQCRm5Z/?mibextid=wwXIfr"
-            target="_blank"
-            rel="noopener">
-              
-            Facebook
-        </a>
+      </div>
 
 
-        <a href="https://www.tiktok.com/@taoufikmoda?_r=1&_t=ZS-99uv2DQrIA6"
-            target="_blank"
-            rel="noopener">
-            TikTok
-        </a>
+      <p
+        class="order-confirm"
+        id="orderConfirm"
+        hidden>
 
-    </div>
+        Merci, votre demande a bien été enregistrée.
+        Nous vous recontactons rapidement.
+
+      </p>
+
+    </form>
+
+
+    <aside class="order-side">
+
+      <p class="eyebrow">
+        Bon à savoir
+      </p>
+
+      <ul class="order-list">
+
+        <li>
+          Retrait gratuit dans l'une de nos 3 boutiques
+        </li>
+
+        <li>
+          Réponse sous 24h ouvrées
+        </li>
+
+        <li>
+          Essayage et retouches sur place
+        </li>
+
+        <li>
+          Paiement à la boutique, en toute confiance
+        </li>
+
+      </ul>
+
+    </aside>
+
+  </div>
 
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
+<!-- ================= FOOTER ================= -->
 
-<footer class="site-footer">
+<footer
+  class="site-footer"
+  id="contact">
 
+  <div class="footer-inner">
 
-    <div class="footer-inner">
+    <div class="footer-brand">
 
+      <img
+        src="images/TAOUFIK-MODA.jpeg"
+        alt="Taoufik Moda"
+        class="footer-logo">
 
-        <div class="footer-brand">
-
-            <img
-                src="images/TAOUFIK-MODA.jpeg"
-                alt="Taoufik Moda"
-                class="footer-logo">
-
-
-            <p>
-                Maison marocaine de prêt-à-porter féminin.
-            </p>
-
-        </div>
-
-
-        <div class="footer-stores">
-
-            <h4>
-                Nos boutiques
-            </h4>
-
-
-            <p>
-                Massira — Marrakech
-            </p>
-
-
-            <p>
-                Mhamid — Marrakech
-            </p>
-
-
-            <p>
-                Attakadoum — Marrakech
-            </p>
-
-        </div>
-
-
-        <div class="footer-social">
-
-            <h4>
-                Suivez-nous
-            </h4>
-
-
-            <p>
-
-                <a href="https://www.instagram.com/taoufik.moda?stkn=MXFtczZiaGIwcDV6aA==">
-                    Instagram
-                </a>
-
-            </p>
-
-
-            <p>
-
-                <a href="https://www.facebook.com/share/19XEQCRm5Z/?mibextid=wwXIfr">
-                    Facebook
-                </a>
-
-            </p>
-
-
-            <p>
-
-                <a href="https://www.tiktok.com/@taoufikmoda?_r=1&_t=ZS-99uv2DQrIA6">
-                    TikTok
-                </a>
-
-            </p>
-
-        </div>
+      <p>
+        Trois boutiques, une même exigence :
+        l'élégance intemporelle.
+      </p>
 
     </div>
 
 
-    <div class="footer-bottom">
+    <div class="footer-stores">
 
-        © <span id="year"></span>
-        Taoufik Moda. Tous droits réservés.
+      <h4>
+        Nos boutiques
+      </h4>
+
+      <p>
+        Massira, Marrakech — +212 6 63 40 62 35
+    </p>
+
+      <p>
+        Mhamid, Marrakech — +212 6 64 38 01 23
+      </p>
+
+      <p>
+        Attakadoum, Marrakech — +212 6 74 29 55 16
+      </p>
 
     </div>
+
+
+    <div class="footer-social">
+
+      <h4>
+        Suivez-nous
+      </h4>
+
+      <p>
+        <a
+          href="https://www.instagram.com/taoufik.moda?igsi=MXFtczZiaGIwcDV6aA=="
+          target="_blank"
+          rel="noopener">
+
+          Instagram
+
+        </a>
+      </p>
+
+      <p>
+        <a
+          href="https://www.facebook.com/share/1MMwxUwxnk/?mibextid=wwXIfr"
+          target="_blank"
+          rel="noopener">
+
+          Facebook
+
+        </a>
+      </p>
+
+      <p>
+        <a
+          href="https://www.tiktok.com/@taoufikmoda?_r=1&_t=ZS-994PnMmMG26"
+          target="_blank"
+          rel="noopener">
+
+          Tik tok
+
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © <span id="year"></span>
+      Taoufik Moda. Tous droits réservés.
+    </span>
+
+  </div>
 
 </footer>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-     ===================================================== -->
+<!-- ================= JAVASCRIPT ================= -->
 
 <script src="script.js"></script>
+<script src="silk-shader.js"></script>
 
 
-<!-- =====================================================
-     INTRO JAVASCRIPT
-     ===================================================== -->
+<!-- ================= WELCOME INTRO ================= -->
 
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const intro =
-        document.getElementById("welcomeIntro");
+  const intro =
+    document.getElementById("welcomeIntro");
 
-    const word =
-        document.getElementById("welcomeWord");
+  const word =
+    document.getElementById("welcomeWord");
+
+  if (!intro || !word) return;
 
 
-    if (!intro || !word) {
-        return;
+  const words = [
+
+    {
+      text: "BIENVENUE",
+      type: "rose"
+    },
+
+    {
+      text: "chez",
+      type: "chez"
+    },
+
+    {
+      text: "TAOUFIK",
+      type: "taoufik"
+    },
+
+    {
+      text: "MODA",
+      type: "moda"
     }
 
-
-    const words = [
-
-        {
-            text: "BIENVENUE",
-            type: "rose"
-        },
-
-        {
-            text: "chez",
-            type: "chez"
-        },
-
-        {
-            text: "TAOUFIK",
-            type: "taoufik"
-        },
-
-        {
-            text: "MODA",
-            type: "moda"
-        }
-
-    ];
+  ];
 
 
-    let i = 0;
+  let i = 0;
 
 
-    function showNext() {
+  function showNext() {
 
+    if (i >= words.length) {
 
-        if (i >= words.length) {
+      setTimeout(function () {
 
-            setTimeout(function () {
-
-                intro.classList.add("hidden");
-
-
-                setTimeout(function () {
-
-                    intro.remove();
-
-                }, 1000);
-
-            }, 500);
-
-
-            return;
-        }
-
-
-        word.className = "";
-
-        word.textContent =
-            words[i].text;
-
-        word.classList.add(
-            words[i].type
-        );
-
-
-        requestAnimationFrame(function () {
-
-            requestAnimationFrame(function () {
-
-                word.classList.add("show");
-
-            });
-
-        });
-
+        intro.classList.add("hidden");
 
         setTimeout(function () {
+          intro.remove();
+        }, 1000);
 
+      }, 500);
 
-            word.classList.remove("show");
-
-            word.classList.add("hide");
-
-
-            setTimeout(function () {
-
-                i++;
-
-                showNext();
-
-            }, 500);
-
-
-        }, 1200);
-
+      return;
     }
 
 
-    showNext();
+    word.className = "";
+
+    word.textContent =
+      words[i].text;
+
+    word.classList.add(
+      words[i].type
+    );
+
+
+    requestAnimationFrame(function () {
+
+      requestAnimationFrame(function () {
+
+        word.classList.add("show");
+
+      });
+
+    });
+
+
+    setTimeout(function () {
+
+      word.classList.remove("show");
+
+      word.classList.add("hide");
+
+
+      setTimeout(function () {
+
+        i++;
+
+        showNext();
+
+      }, 500);
+
+    }, 1200);
+
+  }
+
+
+  showNext();
 
 });
 
 </script>
-
 
 </body>
 </html>
