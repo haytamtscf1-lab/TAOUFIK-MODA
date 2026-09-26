@@ -1,790 +1,1352 @@
-'use strict';
+/* =========================================================
+   TAOUFIK MODA — LOGIQUE DU SITE
+   ========================================================= */
 
-(() => {
+(function () {
 
-    const STORAGE_KEY =
-        'taoufikmoda_products';
-
-    const WHATSAPP_NUMBER =
-        '212664380123';
-
-    const ADMIN_CODE =
-        'taoufik2026';
+  "use strict";
 
 
-    const $ = id =>
-        document.getElementById(id);
+  const STORAGE_KEY =
+    "taoufikmoda_products";
 
 
-    const generateId = () =>
-        'product_' +
-        Math.random()
-            .toString(36)
-            .slice(2, 10);
+  const WHATSAPP_NUMBER =
+    "212664380123";
 
 
-    let products =
-        JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || 'null'
-        ) || [
-
-            {
-                id: generateId(),
-
-                name: 'Robe élégante',
-
-                price: 850,
-
-                category: 'Robes',
-
-                image: '',
-
-                desc:
-                    'Robe élégante pour vos occasions.'
-            },
-
-            {
-                id: generateId(),
-
-                name: 'Kaftan moderne',
-
-                price: 1200,
-
-                category: 'Kaftans',
-
-                image: '',
-
-                desc:
-                    'Kaftan moderne et raffiné.'
-            }
-
-        ];
+  const ADMIN_CODE =
+    "taoufik2026";
 
 
-    let selectedFilter =
-        'Tous';
+  function cryptoId() {
+
+    return (
+      "p_" +
+      Math.random()
+        .toString(36)
+        .slice(2,10)
+    );
+
+  }
 
 
-    let uploadedImage =
-        '';
+  const defaultProducts = [
+
+    {
+      id: cryptoId(),
+      name:"Kaftan brodé Ivoire",
+      price:2400,
+      category:"Kaftans",
+      store:"Guéliz — Marrakech",
+      image:"",
+      desc:"Broderie main sur soie, coupe fluide, finitions dorées."
+    },
+
+    {
+      id: cryptoId(),
+      name:"Robe Soirée Bordeaux",
+      price:1650,
+      category:"Robes",
+      store:"Maârif — Casablanca",
+      image:"",
+      desc:"Velours structuré, dos drapé, longueur au sol."
+    },
+
+    {
+      id: cryptoId(),
+      name:"Ceinture Cuir & Laiton",
+      price:380,
+      category:"Accessoires",
+      store:"Agdal — Rabat",
+      image:"",
+      desc:"Cuir pleine fleur, boucle laiton brossé fait main."
+    }
+
+  ];
 
 
-    /* =====================================================
-       SAVE PRODUCTS
-       ===================================================== */
+  function getProducts() {
 
-    function saveProducts() {
+    try {
+
+      const raw =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
+
+
+      if (!raw) {
 
         localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(products)
+          STORAGE_KEY,
+          JSON.stringify(defaultProducts)
         );
 
-    }
+        return defaultProducts.slice();
+
+      }
 
 
-    /* =====================================================
-       PRICE
-       ===================================================== */
-
-    function formatPrice(price) {
-
-        return Number(price)
-            .toLocaleString('fr-FR')
-            + ' DH';
+      return JSON.parse(raw);
 
     }
+    catch (e) {
+
+      return defaultProducts.slice();
+
+    }
+
+  }
 
 
-    /* =====================================================
-       FILTERS
-       ===================================================== */
+  function saveProducts(products) {
 
-    function renderFilters() {
+    try {
 
-        const container =
-            $('collectionFilters');
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(products)
+      );
 
+    }
+    catch (e) {
 
-        container.innerHTML =
-            '';
+      console.warn(
+        "Impossible d'enregistrer les articles :",
+        e
+      );
 
+    }
 
-        const categories = [
-
-            'Tous',
-
-            ...new Set(
-                products.map(
-                    product =>
-                        product.category
-                )
-            )
-
-        ];
+  }
 
 
-        categories.forEach(
-            category => {
-
-                const button =
-                    document.createElement(
-                        'button'
-                    );
+  let products =
+    getProducts();
 
 
-                button.className =
-                    'filter-chip' +
-                    (
-                        category ===
-                        selectedFilter
-                            ? ' is-active'
-                            : ''
-                    );
+  let activeFilter =
+    "Tous";
 
 
-                button.textContent =
-                    category;
+  let usingPublishedCatalog =
+    false;
 
 
-                button.onclick = () => {
-
-                    selectedFilter =
-                        category;
-
-                    renderFilters();
-
-                    renderProducts();
-
-                };
+  const productGrid =
+    document.getElementById(
+      "productGrid"
+    );
 
 
-                container.appendChild(
-                    button
-                );
+  const emptyState =
+    document.getElementById(
+      "emptyState"
+    );
 
-            }
+
+  const filtersWrap =
+    document.getElementById(
+      "collectionFilters"
+    );
+
+
+  const orderArticleSelect =
+    document.getElementById(
+      "oArticle"
+    );
+
+
+  /* ================= CATALOGUE PUBLIE ================= */
+
+  async function loadPublishedCatalog() {
+
+    try {
+
+      const res =
+        await fetch(
+          "products.json",
+          {
+            cache:"no-store"
+          }
         );
 
-    }
 
+      if (!res.ok) return;
 
-    /* =====================================================
-       PRODUCTS
-       ===================================================== */
 
-    function renderProducts() {
+      const data =
+        await res.json();
 
-        const grid =
-            $('productGrid');
 
+      if (
+        Array.isArray(data) &&
+        data.length
+      ) {
 
-        const filteredProducts =
-            selectedFilter === 'Tous'
+        products = data;
 
-                ? products
-
-                : products.filter(
-                    product =>
-                        product.category ===
-                        selectedFilter
-                );
-
-
-        grid.innerHTML =
-            '';
-
-
-        $('emptyState').hidden =
-            filteredProducts.length > 0;
-
-
-        filteredProducts.forEach(
-            product => {
-
-
-                const card =
-                    document.createElement(
-                        'article'
-                    );
-
-
-                card.className =
-                    'product-card';
-
-
-                card.innerHTML = `
-
-                    <div
-                        class="product-media"
-                        style="background-image:url('${product.image}')">
-                    </div>
-
-                    <div class="product-body">
-
-                        <span class="product-cat">
-                            ${product.category}
-                        </span>
-
-                        <h3>
-                            ${product.name}
-                        </h3>
-
-                        <p class="product-desc">
-                            ${product.desc || ''}
-                        </p>
-
-                        <div class="product-foot">
-
-                            <strong
-                                class="product-price">
-
-                                ${formatPrice(product.price)}
-
-                            </strong>
-
-                            <button
-                                class="product-order">
-
-                                Commander
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-
-                card
-                    .querySelector(
-                        '.product-order'
-                    )
-                    .onclick = () => {
-
-
-                        $('oArticle').value =
-                            product.name;
-
-
-                        $('commande')
-                            .scrollIntoView({
-
-                                behavior:
-                                    'smooth'
-
-                            });
-
-                    };
-
-
-                grid.appendChild(card);
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ORDER OPTIONS
-       ===================================================== */
-
-    function renderOrderOptions() {
-
-        const select =
-            $('oArticle');
-
-
-        select.innerHTML =
-            '<option value="">Choisir un article</option>';
-
-
-        products.forEach(
-            product => {
-
-                const option =
-                    document.createElement(
-                        'option'
-                    );
-
-
-                option.value =
-                    product.name;
-
-
-                option.textContent =
-                    product.name +
-                    ' — ' +
-                    formatPrice(
-                        product.price
-                    );
-
-
-                select.appendChild(
-                    option
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ADMIN LIST
-       ===================================================== */
-
-    function renderAdminList() {
-
-        const list =
-            $('adminList');
-
-
-        list.innerHTML =
-            '';
-
-
-        products.forEach(
-            product => {
-
-
-                const item =
-                    document.createElement(
-                        'div'
-                    );
-
-
-                item.className =
-                    'admin-list-item';
-
-
-                item.innerHTML = `
-
-                    <span>
-
-                        ${product.name}
-                        —
-                        ${formatPrice(product.price)}
-
-                    </span>
-
-                    <button>
-                        Supprimer
-                    </button>
-
-                `;
-
-
-                item
-                    .querySelector('button')
-                    .onclick = () => {
-
-
-                        products =
-                            products.filter(
-                                current =>
-                                    current.id !==
-                                    product.id
-                            );
-
-
-                        refresh();
-
-                    };
-
-
-                list.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       REFRESH
-       ===================================================== */
-
-    function refresh() {
-
-        saveProducts();
+        usingPublishedCatalog = true;
 
         renderFilters();
-
         renderProducts();
-
         renderOrderOptions();
-
         renderAdminList();
 
+      }
+
+    }
+    catch (e) {
+
+      /*
+        Pas de products.json :
+        on garde les produits locaux.
+      */
+
     }
 
-
-    /* =====================================================
-       ADMIN OPEN
-       ===================================================== */
-
-    $('adminToggleLink').onclick =
-        event => {
-
-            event.preventDefault();
+  }
 
 
-            const panel =
-                $('adminPanel');
+  /* ================= PRIX ================= */
+
+  function formatPrice(n) {
+
+    return (
+      Number(n)
+        .toLocaleString("fr-FR")
+      + " DH"
+    );
+
+  }
 
 
-            if (panel.hidden) {
+  /* ================= FILTRES ================= */
+
+  function renderFilters() {
+
+    const cats = [
+
+      "Tous",
+
+      ...new Set(
+        products
+          .map(
+            p => p.category
+          )
+          .filter(Boolean)
+      )
+
+    ];
 
 
-                const code =
-                    prompt(
-                        'Code d’accès :'
-                    );
+    filtersWrap.innerHTML = "";
 
 
-                if (code !== ADMIN_CODE) {
+    cats.forEach(
+      function (cat) {
 
-                    alert(
-                        'Code incorrect.'
-                    );
-
-                    return;
-
-                }
+        const btn =
+          document.createElement(
+            "button"
+          );
 
 
-                panel.hidden =
-                    false;
+        btn.className =
+          "filter-chip" +
+          (
+            cat === activeFilter
+              ? " is-active"
+              : ""
+          );
 
 
-            } else {
-
-                panel.hidden =
-                    true;
-
-            }
-
-        };
+        btn.textContent =
+          cat;
 
 
-    /* =====================================================
-       CLOSE ADMIN
-       ===================================================== */
-
-    $('closeAdmin').onclick =
-        () => {
-
-            $('adminPanel').hidden =
-                true;
-
-        };
+        btn.dataset.filter =
+          cat;
 
 
-    /* =====================================================
-       IMAGE UPLOAD
-       ===================================================== */
+        btn.addEventListener(
+          "click",
+          function () {
 
-    $('pImageFile').onchange =
-        event => {
+            activeFilter =
+              cat;
+
+            renderFilters();
+            renderProducts();
+
+          }
+        );
 
 
-            const file =
-                event.target.files[0];
+        filtersWrap.appendChild(
+          btn
+        );
+
+      }
+    );
+
+  }
 
 
-            if (!file) {
+  /* ================= PRODUITS ================= */
+
+  function renderProducts() {
+
+    const visible =
+      activeFilter === "Tous"
+        ? products
+        : products.filter(
+            p =>
+              p.category ===
+              activeFilter
+          );
+
+
+    productGrid.innerHTML =
+      "";
+
+
+    emptyState.hidden =
+      visible.length > 0;
+
+
+    visible.forEach(
+      function (p) {
+
+        const card =
+          document.createElement(
+            "article"
+          );
+
+
+        card.className =
+          "product-card";
+
+
+        const media =
+          document.createElement(
+            "div"
+          );
+
+
+        media.className =
+          "product-media";
+
+
+        if (p.image) {
+
+          media.style.backgroundImage =
+            `url("${p.image}")`;
+
+        }
+        else {
+
+          const placeholder =
+            document.createElement(
+              "div"
+            );
+
+
+          placeholder.className =
+            "no-img";
+
+
+          placeholder.textContent =
+            "Taoufik Moda";
+
+
+          media.appendChild(
+            placeholder
+          );
+
+        }
+
+
+        const storeTag =
+          document.createElement(
+            "span"
+          );
+
+
+        storeTag.className =
+          "product-store";
+
+
+        storeTag.textContent =
+          p.store || "";
+
+
+        media.appendChild(
+          storeTag
+        );
+
+
+        const body =
+          document.createElement(
+            "div"
+          );
+
+
+        body.className =
+          "product-body";
+
+
+        body.innerHTML = `
+
+          <span class="product-cat">
+            ${escapeHtml(
+              p.category || ""
+            )}
+          </span>
+
+          <h3 class="product-name">
+            ${escapeHtml(
+              p.name
+            )}
+          </h3>
+
+          <p class="product-desc">
+            ${escapeHtml(
+              p.desc || ""
+            )}
+          </p>
+
+          <div class="product-foot">
+
+            <span class="product-price">
+              ${formatPrice(
+                p.price
+              )}
+            </span>
+
+            <button
+              class="product-order"
+              data-id="${p.id}">
+
+              Commander
+
+            </button>
+
+          </div>
+
+        `;
+
+
+        card.appendChild(
+          media
+        );
+
+
+        card.appendChild(
+          body
+        );
+
+
+        productGrid.appendChild(
+          card
+        );
+
+      }
+    );
+
+
+    productGrid
+      .querySelectorAll(
+        ".product-order"
+      )
+      .forEach(
+        function (btn) {
+
+          btn.addEventListener(
+            "click",
+            function () {
+
+              const product =
+                products.find(
+                  p =>
+                    p.id ===
+                    btn.dataset.id
+                );
+
+
+              if (!product)
                 return;
+
+
+              document
+                .getElementById(
+                  "commande"
+                )
+                .scrollIntoView({
+                  behavior:"smooth"
+                });
+
+
+              selectArticleInOrderForm(
+                product.name
+              );
+
             }
+          );
+
+        }
+      );
+
+  }
 
 
-            const reader =
-                new FileReader();
+  /* ================= SECURITE HTML ================= */
+
+  function escapeHtml(str) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
 
 
-            reader.onload =
-                () => {
+    div.textContent =
+      str == null
+        ? ""
+        : str;
 
 
-                    uploadedImage =
-                        reader.result;
+    return div.innerHTML;
+
+  }
 
 
-                    $('imagePreview').src =
-                        uploadedImage;
+  /* ================= OPTIONS COMMANDE ================= */
+
+  function renderOrderOptions() {
+
+    orderArticleSelect.innerHTML =
+      '<option value="">Sélectionner un article</option>';
 
 
-                    $('imagePreview').hidden =
-                        false;
+    products.forEach(
+      function (p) {
+
+        const opt =
+          document.createElement(
+            "option"
+          );
 
 
-                    $('imagePreviewRow').hidden =
-                        false;
-
-                };
+        opt.value =
+          p.name;
 
 
-            reader.readAsDataURL(
-                file
+        opt.textContent =
+          `${p.name} — ${formatPrice(
+            p.price
+          )}`;
+
+
+        orderArticleSelect.appendChild(
+          opt
+        );
+
+      }
+    );
+
+  }
+
+
+  function selectArticleInOrderForm(
+    name
+  ) {
+
+    renderOrderOptions();
+
+    orderArticleSelect.value =
+      name;
+
+    updateWhatsappLink();
+
+  }
+
+
+  /* ================= RAFRAICHISSEMENT ================= */
+
+  function refreshAll() {
+
+    saveProducts(
+      products
+    );
+
+    renderFilters();
+
+    renderProducts();
+
+    renderOrderOptions();
+
+    renderAdminList();
+
+  }
+
+
+  /* ================= ADMIN ================= */
+
+  const adminPanel =
+    document.getElementById(
+      "adminPanel"
+    );
+
+
+  const adminToggleLink =
+    document.getElementById(
+      "adminToggleLink"
+    );
+
+
+  const closeAdminBtn =
+    document.getElementById(
+      "closeAdmin"
+    );
+
+
+  const productForm =
+    document.getElementById(
+      "productForm"
+    );
+
+
+  const adminList =
+    document.getElementById(
+      "adminList"
+    );
+
+
+  adminToggleLink.addEventListener(
+    "click",
+    function (e) {
+
+      e.preventDefault();
+
+
+      if (adminPanel.hidden) {
+
+        const code =
+          prompt(
+            "Code d'accès de l'espace gérant :"
+          );
+
+
+        if (
+          code !==
+          ADMIN_CODE
+        ) {
+
+          if (
+            code !== null
+          ) {
+
+            alert(
+              "Code incorrect."
             );
 
-        };
+          }
 
+          return;
 
-    /* =====================================================
-       REMOVE IMAGE
-       ===================================================== */
+        }
 
-    $('removeImage').onclick =
-        () => {
 
-            uploadedImage =
-                '';
+        adminPanel.hidden =
+          false;
 
-            $('imagePreview').src =
-                '';
 
-            $('imagePreview').hidden =
-                true;
+        adminPanel.scrollIntoView({
+          behavior:"smooth"
+        });
 
-            $('imagePreviewRow').hidden =
-                true;
+      }
+      else {
 
-            $('pImageFile').value =
-                '';
+        adminPanel.hidden =
+          true;
 
-        };
-
-
-    /* =====================================================
-       ADD PRODUCT
-       ===================================================== */
-
-    $('productForm').onsubmit =
-        event => {
-
-
-            event.preventDefault();
-
-
-            const product = {
-
-                id:
-                    generateId(),
-
-                name:
-                    $('pName')
-                        .value
-                        .trim(),
-
-                price:
-                    Number(
-                        $('pPrice')
-                            .value
-                    ),
-
-                category:
-                    $('pCategory')
-                        .value
-                        .trim(),
-
-                image:
-                    uploadedImage ||
-                    $('pImage')
-                        .value
-                        .trim(),
-
-                desc:
-                    $('pDesc')
-                        .value
-                        .trim()
-
-            };
-
-
-            products.push(
-                product
-            );
-
-
-            refresh();
-
-
-            event.target.reset();
-
-
-            uploadedImage =
-                '';
-
-
-            $('imagePreview').src =
-                '';
-
-
-            $('imagePreview').hidden =
-                true;
-
-
-            $('imagePreviewRow').hidden =
-                true;
-
-        };
-
-
-    /* =====================================================
-       EXPORT CATALOG
-       ===================================================== */
-
-    $('exportCatalog').onclick =
-        () => {
-
-
-            const file =
-                new Blob(
-
-                    [
-                        JSON.stringify(
-                            products,
-                            null,
-                            2
-                        )
-                    ],
-
-                    {
-                        type:
-                            'application/json'
-                    }
-
-                );
-
-
-            const link =
-                document.createElement(
-                    'a'
-                );
-
-
-            link.href =
-                URL.createObjectURL(
-                    file
-                );
-
-
-            link.download =
-                'products.json';
-
-
-            link.click();
-
-
-            URL.revokeObjectURL(
-                link.href
-            );
-
-        };
-
-
-    /* =====================================================
-       WHATSAPP MESSAGE
-       ===================================================== */
-
-    function getWhatsAppMessage() {
-
-        return `
-
-Bonjour Taoufik Moda,
-
-Je souhaite commander :
-
-Article : ${$('oArticle').value}
-Quantité : ${$('oQty').value}
-Boutique : ${$('oStore').value}
-Nom : ${$('oName').value}
-Téléphone : ${$('oPhone').value}
-Message : ${$('oMessage').value}
-
-`;
+      }
 
     }
+  );
 
 
-    /* =====================================================
-       WHATSAPP LINK
-       ===================================================== */
+  closeAdminBtn.addEventListener(
+    "click",
+    function () {
 
-    function updateWhatsAppLink() {
+      adminPanel.hidden =
+        true;
 
-        $('whatsappBtn').href =
-            'https://wa.me/' +
-            WHATSAPP_NUMBER +
-            '?text=' +
-            encodeURIComponent(
-                getWhatsAppMessage()
-            );
+
+      document
+        .getElementById(
+          "collection"
+        )
+        .scrollIntoView({
+          behavior:"smooth"
+        });
 
     }
+  );
 
 
-    $('orderForm').oninput =
-        updateWhatsAppLink;
+  /* ================= IMAGE ================= */
+
+  const pImageFile =
+    document.getElementById(
+      "pImageFile"
+    );
 
 
-    /* =====================================================
-       ORDER
-       ===================================================== */
-
-    $('orderForm').onsubmit =
-        event => {
+  const imagePreviewRow =
+    document.getElementById(
+      "imagePreviewRow"
+    );
 
 
-            event.preventDefault();
+  const imagePreview =
+    document.getElementById(
+      "imagePreview"
+    );
 
 
-            updateWhatsAppLink();
+  const removeImageBtn =
+    document.getElementById(
+      "removeImage"
+    );
 
 
-            $('orderConfirm').hidden =
-                false;
+  let uploadedImageData =
+    "";
+
+
+  pImageFile.addEventListener(
+    "change",
+    function () {
+
+      const file =
+        pImageFile.files &&
+        pImageFile.files[0];
+
+
+      if (!file)
+        return;
+
+
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        alert(
+          "Merci de choisir un fichier image."
+        );
+
+
+        pImageFile.value =
+          "";
+
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function () {
+
+          uploadedImageData =
+            reader.result;
+
+
+          imagePreview.src =
+            uploadedImageData;
+
+
+          imagePreviewRow.hidden =
+            false;
 
         };
 
 
-    /* =====================================================
-       MOBILE MENU
-       ===================================================== */
+      reader.readAsDataURL(
+        file
+      );
 
-    $('burgerBtn').onclick =
-        () => {
-
-
-            $('mainNav')
-                .classList
-                .toggle(
-                    'is-open'
-                );
+    }
+  );
 
 
-        };
+  removeImageBtn.addEventListener(
+    "click",
+    function () {
+
+      uploadedImageData =
+        "";
 
 
-    /* =====================================================
-       YEAR
-       ===================================================== */
-
-    $('year').textContent =
-        new Date().getFullYear();
+      pImageFile.value =
+        "";
 
 
-    /* =====================================================
-       INITIALIZATION
-       ===================================================== */
+      imagePreviewRow.hidden =
+        true;
 
-    refresh();
 
-    updateWhatsAppLink();
+      imagePreview.src =
+        "";
+
+    }
+  );
+
+
+  function resetImageUpload() {
+
+    uploadedImageData =
+      "";
+
+
+    pImageFile.value =
+      "";
+
+
+    imagePreviewRow.hidden =
+      true;
+
+
+    imagePreview.src =
+      "";
+
+  }
+
+
+  /* ================= AJOUT PRODUIT ================= */
+
+  productForm.addEventListener(
+    "submit",
+    function (e) {
+
+      e.preventDefault();
+
+
+      const newProduct = {
+
+        id:
+          cryptoId(),
+
+        name:
+          document
+            .getElementById(
+              "pName"
+            )
+            .value
+            .trim(),
+
+        price:
+          Number(
+            document
+              .getElementById(
+                "pPrice"
+              )
+              .value
+          ),
+
+        category:
+          document
+            .getElementById(
+              "pCategory"
+            )
+            .value
+            .trim(),
+
+        store:
+          document
+            .getElementById(
+              "pStore"
+            )
+            .value,
+
+        image:
+          uploadedImageData ||
+          document
+            .getElementById(
+              "pImage"
+            )
+            .value
+            .trim(),
+
+        desc:
+          document
+            .getElementById(
+              "pDesc"
+            )
+            .value
+            .trim()
+
+      };
+
+
+      if (
+        !newProduct.name ||
+        !newProduct.category
+      ) {
+
+        return;
+
+      }
+
+
+      products.push(
+        newProduct
+      );
+
+
+      refreshAll();
+
+
+      productForm.reset();
+
+
+      resetImageUpload();
+
+    }
+  );
+
+
+  /* ================= LISTE ADMIN ================= */
+
+  function renderAdminList() {
+
+    adminList.innerHTML =
+      "";
+
+
+    products.forEach(
+      function (p) {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "admin-list-item";
+
+
+        const thumb =
+          p.image
+            ? `<img src="${p.image}" alt="">`
+            : "";
+
+
+        row.innerHTML = `
+
+          <span class="item-info">
+
+            ${thumb}
+
+            ${escapeHtml(
+              p.name
+            )}
+
+            — ${formatPrice(
+              p.price
+            )}
+
+            — ${escapeHtml(
+              p.category
+            )}
+
+          </span>
+
+        `;
+
+
+        const removeBtn =
+          document.createElement(
+            "button"
+          );
+
+
+        removeBtn.textContent =
+          "Retirer";
+
+
+        removeBtn.addEventListener(
+          "click",
+          function () {
+
+            products =
+              products.filter(
+                prod =>
+                  prod.id !==
+                  p.id
+              );
+
+
+            refreshAll();
+
+          }
+        );
+
+
+        row.appendChild(
+          removeBtn
+        );
+
+
+        adminList.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ================= EXPORT CATALOGUE ================= */
+
+  const exportCatalogBtn =
+    document.getElementById(
+      "exportCatalog"
+    );
+
+
+  exportCatalogBtn.addEventListener(
+    "click",
+    function () {
+
+      const blob =
+        new Blob(
+          [
+            JSON.stringify(
+              products,
+              null,
+              2
+            )
+          ],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const a =
+        document.createElement(
+          "a"
+        );
+
+
+      a.href =
+        url;
+
+
+      a.download =
+        "products.json";
+
+
+      document.body.appendChild(
+        a
+      );
+
+
+      a.click();
+
+
+      document.body.removeChild(
+        a
+      );
+
+
+      URL.revokeObjectURL(
+        url
+      );
+
+
+      alert(
+        "Le fichier products.json a été téléchargé.\n\n" +
+        "Pour que tous les visiteurs voient ces articles et photos :\n" +
+        "1. Ouvrez votre hébergement (là où se trouve index.html)\n" +
+        "2. Remplacez le fichier products.json par celui téléchargé\n" +
+        "3. C'est publié — tout le monde verra le même catalogue."
+      );
+
+    }
+  );
+
+
+  /* ================= COMMANDE ================= */
+
+  const orderForm =
+    document.getElementById(
+      "orderForm"
+    );
+
+
+  const orderConfirm =
+    document.getElementById(
+      "orderConfirm"
+    );
+
+
+  const whatsappBtn =
+    document.getElementById(
+      "whatsappBtn"
+    );
+
+
+  function buildOrderMessage() {
+
+    const name =
+      document
+        .getElementById(
+          "oName"
+        )
+        .value
+        .trim();
+
+
+    const phone =
+      document
+        .getElementById(
+          "oPhone"
+        )
+        .value
+        .trim();
+
+
+    const article =
+      document
+        .getElementById(
+          "oArticle"
+        )
+        .value;
+
+
+    const qty =
+      document
+        .getElementById(
+          "oQty"
+        )
+        .value;
+
+
+    const store =
+      document
+        .getElementById(
+          "oStore"
+        )
+        .value;
+
+
+    const message =
+      document
+        .getElementById(
+          "oMessage"
+        )
+        .value
+        .trim();
+
+
+    return (
+
+      `Bonjour Taoufik Moda, je souhaite commander :\n` +
+
+      `- Article : ${
+        article || "—"
+      }\n` +
+
+      `- Quantité : ${
+        qty
+      }\n` +
+
+      `- Boutique de retrait : ${
+        store
+      }\n` +
+
+      `- Nom : ${
+        name
+      }\n` +
+
+      `- Téléphone : ${
+        phone
+      }\n` +
+
+      (
+        message
+          ? `- Précisions : ${message}\n`
+          : ""
+      )
+
+    );
+
+  }
+
+
+  function updateWhatsappLink() {
+
+    const text =
+      encodeURIComponent(
+        buildOrderMessage()
+      );
+
+
+    whatsappBtn.href =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+
+  }
+
+
+  orderForm.addEventListener(
+    "input",
+    updateWhatsappLink
+  );
+
+
+  orderForm.addEventListener(
+    "submit",
+    function (e) {
+
+      e.preventDefault();
+
+
+      if (
+        !orderForm.checkValidity()
+      ) {
+
+        orderForm.reportValidity();
+
+        return;
+
+      }
+
+
+      updateWhatsappLink();
+
+
+      orderConfirm.hidden =
+        false;
+
+
+      orderForm.reset();
+
+
+      updateWhatsappLink();
+
+
+      setTimeout(
+        function () {
+
+          orderConfirm.hidden =
+            true;
+
+        },
+        6000
+      );
+
+    }
+  );
+
+
+  /* ================= MENU MOBILE ================= */
+
+  const burgerBtn =
+    document.getElementById(
+      "burgerBtn"
+    );
+
+
+  const mainNav =
+    document.getElementById(
+      "mainNav"
+    );
+
+
+  burgerBtn.addEventListener(
+    "click",
+    function () {
+
+      const isOpen =
+        mainNav.classList.toggle(
+          "is-open"
+        );
+
+
+      burgerBtn.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+    }
+  );
+
+
+  mainNav
+    .querySelectorAll("a")
+    .forEach(
+      function (a) {
+
+        a.addEventListener(
+          "click",
+          function () {
+
+            mainNav.classList.remove(
+              "is-open"
+            );
+
+
+            burgerBtn.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  /* ================= INIT ================= */
+
+  document
+    .getElementById(
+      "year"
+    )
+    .textContent =
+      new Date()
+        .getFullYear();
+
+
+  refreshAll();
+
+
+  updateWhatsappLink();
+
+
+  loadPublishedCatalog();
 
 })();
